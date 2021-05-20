@@ -1,5 +1,9 @@
 # GEOBH
 
+O GeoBH é um projeto com dados geoespaciais sobre a cidade de Belo Horizonte, Minhas Gerais.
+
+> :warning: Projeto Open Source
+
 ## Camadas
 
 * Bairros
