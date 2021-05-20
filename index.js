@@ -8,9 +8,9 @@ import {MousePosition, defaults, ScaleLine} from 'ol/control';
 import {createStringXY} from 'ol/coordinate';
 
 const belo_horizonte = [-4891950.72, -2263787.71]
-const URL_WMS ='https://localhost:8080/geoserver/geobh/wms'
+const URL_WMS ='http://localhost:8080/geoserver/geobh/wms'
 var WGS84_LATLONG = 'EPSG:4326';
-var WGS84_UTM = 'EPSG:3857';
+var WGS84_UTM = 'EPSG:31983';
 var scale = document.getElementById('scale-line');
 scale.style.position = "absolute";
 var scaleLineControl = new ScaleLine({target: scale});
@@ -170,10 +170,6 @@ const map = new Map({
   }).extend([mousePositionControl, scaleLineControl]),
 });
 
-var container = document.getElementById('popup');
-var content = document.getElementById('popup-content');
-var closer = document.getElementById('popup-closer');
-
 let is_visible_bairro_oficial = false
 let is_visible_escolas_estaduais = false
 let is_visible_escolas_particulares = false
@@ -247,6 +243,11 @@ estacaoMetroButton.onclick = function() {
   is_visible_estacao_metro = !is_visible_estacao_metro
   estacao_metro.setVisible(is_visible_estacao_metro)
 }
+
+var container = document.getElementById('popup');
+var content = document.getElementById('popup-content');
+var closer = document.getElementById('popup-closer');
+
 let overlay = new Overlay(({
     element: container,
     autoPan: true,
@@ -262,7 +263,6 @@ closer.onclick = function() {
     closer.blur();
     return false;
 };
-let headers = new Headers();
 
 map.on('singleclick', function(evt){
     let coordinate = evt.coordinate;
@@ -276,18 +276,19 @@ map.on('singleclick', function(evt){
                 coordinate, viewResolution, WGS84_UTM, {'INFO_FORMAT': 'text/html'}
             );
             console.log(urlInfo);
-
             queryArray.push(urlInfo);
         }
     });
-
+    console.log(queryArray);
     content.innerHTML = '';
     queryArray.forEach((url) => {
-        fetch(url)
+        fetch(url, { mode: 'no-cors'})
         .then(res => {
+            console.log(res);
             return res.text();
         })
         .then(text => {
+            console.log(text);
             handleResult(text, coordinate);
         })
         .catch((err) => {
