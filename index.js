@@ -12,7 +12,7 @@ import {unByKey} from 'ol/Observable';
 import TileWMS from 'ol/source/TileWMS';
 
 const belo_horizonte = [-4891950.72, -2263787.71]
-const URL_WMS ='http://localhost:8080/geoserver/geobh/wms'
+const URL_WMS ='http://localhost:8080/geoserver/sig/wms'
 
 function buildLayer(layers) {
     return new TileLayer({
@@ -27,7 +27,7 @@ function buildLayer(layers) {
     });
 };
 
-const bairro_oficial = buildLayer('sig:bairro_popular');
+const bairro_popular = buildLayer('sig:bairro_popular');
 const logradouroline = buildLayer('sig:logradouroline');
 const area_publica_wifi = buildLayer('sig:area_publica_wifi');
 const escolas_estaduais = buildLayer('sig:escolas_estaduais');
@@ -43,7 +43,7 @@ const map = new Map({
     new TileLayer({
       source: new OSM()
     }),
-    bairro_oficial,
+    bairro_popular,
     escolas_estaduais,
     escolas_particulares,
     escolas_municipais_ensino_fundamental,
@@ -61,8 +61,8 @@ const map = new Map({
 
 function activeLayer(camada, ck) {
 	var olCamada;
-	if(camada == 'bairro_oficial') {
-		olCamada = bairro_oficial;
+	if(camada == 'bairro_popular') {
+		olCamada = bairro_popular;
 	}
 
 	olCamada.setVisible(ck);
@@ -190,7 +190,7 @@ deleteTouchesButton.onclick = () => {
 
 // ------------- Controle dos layers ------------------------- //
 
-let is_visible_bairro_oficial = false
+let is_visible_bairro_popular = false
 let is_visible_escolas_estaduais = false
 let is_visible_escolas_particulares = false
 let is_visible_escolas_municipais_ensino_fundamental = false
@@ -200,11 +200,11 @@ let is_visible_area_publica_wifi = false
 let is_visible_estacao_onibus = false
 let is_visible_estacao_metro = false
 
-const bairrosButton = document.getElementById('bairro_oficial');
+const bairrosButton = document.getElementById('bairro_popular');
 
 bairrosButton.onclick = function() {
-  is_visible_bairro_oficial = !is_visible_bairro_oficial
-  bairro_oficial.setVisible(is_visible_bairro_oficial)
+  is_visible_bairro_popular = !is_visible_bairro_popular
+  bairro_popular.setVisible(is_visible_bairro_popular)
 }
 
 const escolasEstaduaisButton = document.getElementById('escolas_estaduais');

@@ -29,7 +29,7 @@
       <h4>Consulta com buffer</h4>
 
       <div class="operation-section">
-        <h5>Escolas estaduais próximas a estações de trem</h5>
+        <h5>Escolas estaduais próximas a estações de metrô</h5>
         <input id="input-search-buffer" type="text" placeholder="Distância em metros...">
         <button id="bt-search-buffer" type="button">
           Pesquisar
@@ -82,23 +82,23 @@
     <form>
       <h3>Camadas</h3>
       <span>
-        <input type='checkbox' id='bairro_oficial' name='bairro_oficial'>
+        <input type='checkbox' id='bairro_popular' name='bairro_popular'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:bairro_oficial' />
-        Bairro Oficial
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:bairro_popular' />
+        Bairro Popular
       </span>
 
       <span>
         <input type='checkbox' id='escolas_estaduais' name='escolas_estaduais'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:escolas_estaduais' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:escolas_estaduais' />
         Escolas Estaduais
       </span>
 
       <span>
         <input type='checkbox' id='escolas_particulares' name='escolas_particulares'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:escolas_particulares' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:escolas_particulares' />
         Escolas Particulares
       </span>
 
@@ -106,42 +106,42 @@
         <input type='checkbox' id='escolas_municipais_ensino_fundamental' name='escolas_municipais_ensino_fundamental'
         >
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:escolas_municipais_ensino_fundamental' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:escolas_municipais_ensino_fundamental' />
         Escolas Municipais Ensino Fundamental
       </span>
 
       <span>
         <input type='checkbox' id='ensino_superior' name='ensino_superior'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:ensino_superior' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:ensino_superior' />
         Escolas Superior
       </span>
 
       <span>
         <input type='checkbox' id='logradouroline' name='logradouroline'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:logradouroline' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:logradouroline' />
         Logradouroline
       </span>
 
       <span>
         <input type='checkbox' id='area_publica_wifi' name='area_publica_wifi'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:area_publica_wifi' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:area_publica_wifi' />
         Area Publica Wifi
       </span>
 
       <span>
         <input type='checkbox' id='estacao_onibus' name='estacao_onibus'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:estacao_onibus' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:estacao_onibus' />
         Estacao Onibus
       </span>
 
       <span>
         <input type='checkbox' id='estacao_metro' name='estacao_metro'>
         <img
-          src='http://localhost:8080/geoserver/geobh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=geobh:estacao_metro' />
+          src='http://localhost:8080/geoserver/sig/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=sig:estacao_metro' />
         Estacao Metro
       </span>
 
