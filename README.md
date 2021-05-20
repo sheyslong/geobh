@@ -59,7 +59,8 @@ Os arquivos se encontrom no [Drive](https://drive.google.com/drive/folders/1KTsw
 ## Queries:
 
 
-### L em bairros
+### Logradouros em bairros
+
 ```sql
 SELECT logl.geom FROM logradouroline logl, bairro_popular bair WHERE st_intersects(logl.geom, bair.geom) AND bair.nome LIKE '%bairro%'
 ```
