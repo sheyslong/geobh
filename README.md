@@ -54,7 +54,7 @@ As ferramentas utilizadas foram:
 
 ## Baixar os arquivos ShapeFiles
 
-Os arquivos se encontrom no [Drive](https://drive.google.com/drive/folders/1KTswJFmxpA94060Z28RqW1OAtsAjdqhI?usp=sharing)
+Os arquivos se encontram no [Drive](https://drive.google.com/drive/folders/1KTswJFmxpA94060Z28RqW1OAtsAjdqhI?usp=sharing)
 
 ## Queries
 
