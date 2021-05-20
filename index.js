@@ -1,13 +1,19 @@
 import 'ol/ol.css';
-import {Map, View, Image} from 'ol';
+import {Map, View, Overlay} from 'ol';
 import TileLayer from 'ol/layer/Tile';
 import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
-import ImageWMS from 'ol/source/ImageWMS';
 import TileWMS from 'ol/source/TileWMS';
+import {MousePosition, defaults, ScaleLine} from 'ol/control';
+import {createStringXY} from 'ol/coordinate';
 
 const belo_horizonte = [-4891950.72, -2263787.71]
-const URL_WMS ='http://localhost:8080/geoserver/geobh/wms'
+const URL_WMS ='https://localhost:8080/geoserver/geobh/wms'
+var WGS84_LATLONG = 'EPSG:4326';
+var WGS84_UTM = 'EPSG:3857';
+var scale = document.getElementById('scale-line');
+scale.style.position = "absolute";
+var scaleLineControl = new ScaleLine({target: scale});
 
 const bairro_oficial = new Tile({
     source: new TileWMS({
@@ -108,7 +114,36 @@ const estacao_onibus = new Tile({
     visible: false
 })
 
-new Map({
+let layers = {
+    bairro_oficial: bairro_oficial,
+    logradouroline: logradouroline,
+    area_publica_wifi: area_publica_wifi,
+    escolas_estaduais: escolas_estaduais,
+    ensino_superior: ensino_superior,
+    escolas_municipais_ensino_fundamental: escolas_municipais_ensino_fundamental,
+    escolas_particulares: escolas_particulares,
+    estacao_metro: estacao_metro,
+    estacao_onibus: estacao_onibus,
+
+};
+var mousePos = document.getElementById('mouse-position');
+mousePos.style.position = "absolute";
+mousePos.style.left = ((document.getElementById('map').clientWidth/2) - 40) + "px";
+mousePos.style.top = "0px";
+mousePos.style.fontWeight = "bold";
+mousePos.style.fontSize = "14px";
+
+
+/*Variavel que trata a exibicao das coordenadas do mouse*/
+var mousePositionControl = new MousePosition({
+  coordinateFormat: createStringXY(4),
+  projection: WGS84_LATLONG,
+  className: 'custom-mouse-position',
+  target: mousePos,
+  undefinedHTML: '&nbsp;'
+});
+
+const map = new Map({
   target: 'map',
   layers: [
     new TileLayer({
@@ -127,7 +162,12 @@ new Map({
   view: new View({
     center: belo_horizonte,
     zoom: 12
-  })
+  }),
+  controls: defaults({
+    attributionOptions: ({
+      collapsible: false
+    })
+  }).extend([mousePositionControl, scaleLineControl]),
 });
 
 var container = document.getElementById('popup');
@@ -207,4 +247,71 @@ estacaoMetroButton.onclick = function() {
   is_visible_estacao_metro = !is_visible_estacao_metro
   estacao_metro.setVisible(is_visible_estacao_metro)
 }
+let overlay = new Overlay(({
+    element: container,
+    autoPan: true,
+    autoPanAnimation: {
+        duration: 250
+    }
+}));
 
+map.addOverlay(overlay);
+
+closer.onclick = function() {
+    overlay.setPosition(undefined);
+    closer.blur();
+    return false;
+};
+let headers = new Headers();
+
+map.on('singleclick', function(evt){
+    let coordinate = evt.coordinate;
+    let viewResolution = map.getView().getResolution();
+    
+    let urlInfo;
+    let queryArray = [];
+    Object.values(layers).forEach((l) => {
+        if (l.values_.visible === true) {
+            urlInfo = l.getSource().getFeatureInfoUrl (
+                coordinate, viewResolution, WGS84_UTM, {'INFO_FORMAT': 'text/html'}
+            );
+            console.log(urlInfo);
+
+            queryArray.push(urlInfo);
+        }
+    });
+
+    content.innerHTML = '';
+    queryArray.forEach((url) => {
+        fetch(url)
+        .then(res => {
+            return res.text();
+        })
+        .then(text => {
+            handleResult(text, coordinate);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    });
+});
+
+function activeLayer(layerName, visible) {
+    layer = layers[layerName];
+    layer.setVisible(visible);
+}
+
+function handleResult(result,coordinate) {
+	 let html = subStringBody(result);
+	 content.innerHTML += result;
+	 overlay.setPosition(coordinate);
+}
+
+function subStringBody(html) {
+	let i = html.indexOf("<body>");
+	let f = html.indexOf("</body>");
+	if(i >= 0 && f >= 0) {
+		i += 6;
+		return html.substring(i, f);
+	}
+}
